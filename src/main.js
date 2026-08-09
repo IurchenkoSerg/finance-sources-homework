@@ -6,8 +6,8 @@ const statusElement = document.querySelector("#status");
 const summaryElement = document.querySelector("#summary");
 const sourcesElement = document.querySelector("#sources");
 const refreshButton = document.querySelector("#refresh-button");
-const languageButton = document.querySelector("#language-button");
-const themeButton = document.querySelector("#theme-button");
+const languageButtons = document.querySelectorAll("[data-language]");
+const themeButtons = document.querySelectorAll("[data-theme-value]");
 
 const translations = {
   ru: {
@@ -16,6 +16,8 @@ const translations = {
     subtitle:
       "Данные загружаются из двух API. Валюты считаются отдельно и никогда не смешиваются.",
     refresh: "Обновить данные",
+    languageLabel: "Язык",
+    themeLabel: "Тема",
     lightTheme: "Светлая тема",
     darkTheme: "Тёмная тема",
     settings: "Настройки страницы",
@@ -41,6 +43,8 @@ const translations = {
     subtitle:
       "Data is loaded from two APIs. Currencies are calculated separately and are never mixed.",
     refresh: "Refresh data",
+    languageLabel: "Language",
+    themeLabel: "Appearance",
     lightTheme: "Light theme",
     darkTheme: "Dark theme",
     settings: "Page settings",
@@ -165,12 +169,11 @@ function applyLanguage() {
   document.querySelector(".toolbar").ariaLabel = translate("settings");
   summaryElement.ariaLabel = translate("summaryLabel");
   sourcesElement.ariaLabel = translate("sourcesLabel");
-  languageButton.textContent = currentLanguage === "ru" ? "EN" : "RU";
-  languageButton.ariaLabel = currentLanguage === "ru"
-    ? "Switch to English"
-    : "Переключить на русский";
-  themeButton.textContent =
-    currentTheme === "dark" ? translate("lightTheme") : translate("darkTheme");
+  languageButtons.forEach((button) => {
+    const isActive = button.dataset.language === currentLanguage;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
 
   if (currentReport) {
     const currencyCount = Object.keys(currentReport.totalsByCurrency).length;
@@ -182,9 +185,11 @@ function applyLanguage() {
 
 function applyTheme() {
   document.documentElement.dataset.theme = currentTheme;
-  themeButton.textContent =
-    currentTheme === "dark" ? translate("lightTheme") : translate("darkTheme");
-  themeButton.setAttribute("aria-pressed", String(currentTheme === "dark"));
+  themeButtons.forEach((button) => {
+    const isActive = button.dataset.themeValue === currentTheme;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 async function loadRevenue() {
@@ -217,15 +222,19 @@ async function loadRevenue() {
 }
 
 refreshButton.addEventListener("click", loadRevenue);
-languageButton.addEventListener("click", () => {
-  currentLanguage = currentLanguage === "ru" ? "en" : "ru";
-  localStorage.setItem("language", currentLanguage);
-  applyLanguage();
+languageButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    currentLanguage = button.dataset.language;
+    localStorage.setItem("language", currentLanguage);
+    applyLanguage();
+  });
 });
-themeButton.addEventListener("click", () => {
-  currentTheme = currentTheme === "light" ? "dark" : "light";
-  localStorage.setItem("theme", currentTheme);
-  applyTheme();
+themeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    currentTheme = button.dataset.themeValue;
+    localStorage.setItem("theme", currentTheme);
+    applyTheme();
+  });
 });
 
 applyTheme();

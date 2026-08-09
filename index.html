@@ -12,12 +12,20 @@
   <body>
     <main class="page">
       <nav class="toolbar" aria-label="Page settings">
-        <button id="language-button" class="control-button" type="button">
-          EN
-        </button>
-        <button id="theme-button" class="control-button" type="button">
-          Dark theme
-        </button>
+        <div class="control-group">
+          <span class="control-label" data-i18n="languageLabel">Язык</span>
+          <div class="segmented-control" role="group" aria-label="Language">
+            <button class="segment" type="button" data-language="ru">RU</button>
+            <button class="segment" type="button" data-language="en">EN</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <span class="control-label" data-i18n="themeLabel">Тема</span>
+          <div class="segmented-control" role="group" aria-label="Theme">
+            <button class="segment theme-icon" type="button" data-theme-value="light" aria-label="Light theme">☀</button>
+            <button class="segment theme-icon" type="button" data-theme-value="dark" aria-label="Dark theme">☾</button>
+          </div>
+        </div>
       </nav>
 
       <header class="hero">
