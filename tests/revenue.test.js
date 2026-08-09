@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { calculateRevenue } from "./revenue.js";
+import { calculateRevenue } from "../lib/revenue.js";
 
 const source1 = {
   transactions: [
