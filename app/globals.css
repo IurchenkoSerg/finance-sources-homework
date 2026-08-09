@@ -219,7 +219,8 @@ h1 {
   line-height: 1.62;
 }
 
-#refresh-button {
+#refresh-button,
+.primary-button {
   border: 1px solid rgb(255 255 255 / 26%);
   border-radius: 999px;
   padding: 0.86rem 1.35rem;
@@ -230,9 +231,35 @@ h1 {
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-#refresh-button:hover {
+#refresh-button:hover,
+.primary-button:hover {
   box-shadow: 0 14px 32px rgb(8 115 232 / 34%), inset 0 1px 0 rgb(255 255 255 / 42%);
   transform: translateY(-1px);
+}
+
+.secondary-link,
+.back-link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.secondary-link {
+  margin-top: 1rem;
+}
+
+.secondary-link:hover,
+.back-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.secondary-link:focus-visible,
+.back-link:focus-visible,
+.source-contract a:focus-visible {
+  border-radius: 4px;
+  outline: 3px solid rgb(8 124 255 / 36%);
+  outline-offset: 3px;
 }
 
 .status,
@@ -410,6 +437,182 @@ h1 {
   color: var(--muted-text);
 }
 
+.page-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.toolbar--inline {
+  position: static;
+  margin: 0;
+}
+
+.hero--sources {
+  max-width: 930px;
+}
+
+.audit-summary,
+.audit-card {
+  border: 1px solid var(--border);
+  background: var(--glass);
+  box-shadow: var(--shadow), inset 0 1px 0 var(--border);
+  backdrop-filter: blur(28px) saturate(165%);
+  -webkit-backdrop-filter: blur(28px) saturate(165%);
+}
+
+.audit-summary {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1px;
+  margin: 1.5rem 0 1rem;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.audit-summary > div {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.2rem 1.35rem;
+  background: var(--glass-soft);
+}
+
+.audit-summary span,
+.source-contract dt {
+  color: var(--muted-text);
+  font-size: 0.7rem;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.audit-summary strong {
+  font-size: 1rem;
+}
+
+.audit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.audit-card {
+  min-width: 0;
+  border-radius: 28px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.audit-card__heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.audit-card h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: -0.025em;
+}
+
+.source-status,
+.issue-severity {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 0.38rem 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 780;
+}
+
+.source-status--ok {
+  color: var(--success);
+  background: var(--success-bg);
+}
+
+.source-status--warning,
+.issue-severity--warning {
+  color: var(--warning);
+  background: var(--warning-bg);
+}
+
+.source-status--error,
+.issue-severity--error {
+  color: var(--error);
+  background: var(--error-bg);
+}
+
+.source-contract {
+  display: grid;
+  gap: 1rem;
+  margin: 1.6rem 0;
+  border-block: 1px solid var(--inner-border);
+  padding: 1.25rem 0;
+}
+
+.source-contract div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.source-contract dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+
+.source-contract a {
+  color: var(--accent);
+}
+
+.issue-section h3 {
+  margin: 0 0 0.8rem;
+  color: var(--muted-text);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.issue-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.issue-list li {
+  border: 1px solid var(--inner-border);
+  border-radius: 16px;
+  padding: 0.9rem;
+  background: var(--glass-soft);
+}
+
+.issue-list li > div {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+
+.issue-list code {
+  color: var(--muted-text);
+  font-size: 0.72rem;
+}
+
+.issue-list strong {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+}
+
+.issue-list p {
+  margin: 0.35rem 0 0;
+  color: var(--muted-text);
+  line-height: 1.5;
+}
+
 @media (max-width: 680px) {
   .page {
     padding-top: 1rem;
@@ -427,6 +630,28 @@ h1 {
 
   .source-heading {
     display: grid;
+  }
+
+  .page-navigation {
+    display: grid;
+    margin-bottom: 3rem;
+  }
+
+  .toolbar--inline {
+    justify-self: start;
+  }
+
+  .audit-summary,
+  .audit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .audit-card__heading {
+    display: grid;
+  }
+
+  .source-status {
+    justify-self: start;
   }
 }
 

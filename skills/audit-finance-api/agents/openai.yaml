@@ -1,0 +1,4 @@
+interface:
+  display_name: "Finance API Auditor"
+  short_description: "Проверяет качество ответов финансового API"
+  default_prompt: "Use $audit-finance-api to inspect the current finance API responses and create a backend-ready text report."

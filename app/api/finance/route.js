@@ -1,21 +1,5 @@
 import { calculateRevenue } from "../../../lib/revenue";
-
-const API_BASE_URL = "https://cpa-server-vtel.onrender.com/api";
-
-async function requestSource(path) {
-  const response = await fetch(`${API_BASE_URL}/${path}`, {
-    headers: {
-      "x-api-key": process.env.CPA_API_KEY,
-    },
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
-    throw new Error(`Finance server returned status ${response.status}.`);
-  }
-
-  return response.json();
-}
+import { requestFinanceSource } from "../../../lib/finance-sources";
 
 export async function GET() {
   if (!process.env.CPA_API_KEY) {
@@ -27,8 +11,8 @@ export async function GET() {
 
   try {
     const [source1, source2] = await Promise.all([
-      requestSource("finance1"),
-      requestSource("finance2"),
+      requestFinanceSource("finance1", process.env.CPA_API_KEY),
+      requestFinanceSource("finance2", process.env.CPA_API_KEY),
     ]);
 
     return Response.json(calculateRevenue(source1, source2));

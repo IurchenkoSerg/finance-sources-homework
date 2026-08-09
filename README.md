@@ -12,6 +12,8 @@ Next.js приложение получает данные о прибыли и�
 - светлая и тёмная темы;
 - `liquid glass` оформление;
 - понятный интерфейс загрузки и ошибок;
+- отдельная страница `/sources` со списком API и живой проверкой качества;
+- проектный навык для подготовки Markdown-отчета backend-разработчикам;
 - сохранение языка и темы в `localStorage`.
 
 ## Настройка
@@ -37,6 +39,20 @@ npm run dev
 http://localhost:3000
 ```
 
+Страница источников доступна по адресу `http://localhost:3000/sources`.
+
+## Аудит API
+
+Чтобы проверить текущие ответы и обновить текстовый отчет:
+
+```bash
+node --env-file=.env.local skills/audit-finance-api/scripts/audit-finance-api.js
+```
+
+Результат сохраняется в `reports/finance-api-audit.md`. Навык находится в
+`skills/audit-finance-api` и использует те же правила проверки, что и страница
+источников.
+
 ## Проверка
 
 ```bash
@@ -50,9 +66,14 @@ npm run build
 - `app/layout.js` — корневой layout и metadata.
 - `app/components/FinanceDashboard.js` — интерактивный React interface.
 - `app/api/finance/route.js` — server requests к внешним источникам.
+- `app/api/finance/audit/route.js` — безопасный live-аудит ответов API.
+- `app/sources/page.js` — страница источников и потенциальных проблем.
 - `app/globals.css` — стили интерфейса.
 - `lib/revenue.js` — проверка данных и расчёт прибыли.
+- `lib/finance-audit.js` — сбор всех проблем качества без изменения ответов.
+- `lib/finance-sources.js` — единый список источников и server-side запросы.
 - `tests/revenue.test.js` — unit tests расчёта.
+- `tests/finance-audit.test.js` — unit tests аудита API.
 
 ## Работа с валютами
 
@@ -68,3 +89,8 @@ npm run build
 
 API key используется только внутри Next.js server route и не попадает в browser
 bundle.
+
+Подробный разбор концепций Next.js находится в [CONCEPTS.md](./CONCEPTS.md).
+
+Документация по структуре и архитектуре проекта находится в
+[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).

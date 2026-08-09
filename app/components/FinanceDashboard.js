@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 
 const translations = {
   ru: {
@@ -9,6 +10,7 @@ const translations = {
     subtitle:
       "Данные загружаются через защищённый server route. Валюты считаются отдельно и никогда не смешиваются.",
     refresh: "Обновить данные",
+    sourcesPage: "Источники и качество данных →",
     languageLabel: "Язык",
     themeLabel: "Тема",
     settings: "Настройки страницы",
@@ -34,6 +36,7 @@ const translations = {
     subtitle:
       "Data is loaded through a secure server route. Currencies are calculated separately and are never mixed.",
     refresh: "Refresh data",
+    sourcesPage: "Sources and data quality →",
     languageLabel: "Language",
     themeLabel: "Appearance",
     settings: "Page settings",
@@ -257,6 +260,9 @@ export default function FinanceDashboard() {
         >
           {text.refresh}
         </button>
+        <Link className="secondary-link" href="/sources">
+          {text.sourcesPage}
+        </Link>
       </header>
 
       <section className={`status status--${status.type}`} aria-live="polite">
